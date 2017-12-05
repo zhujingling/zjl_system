@@ -1,0 +1,103 @@
+/**
+ * @Title: ZTreeNode.java
+ * @Package com.zjlsystem.entity.common
+ * @Description: TODO
+ * Copyright: Copyright (c) 2011 
+ * Company:
+ * 
+ * @author zhujl
+ * @date 2017年8月15日 下午8:17:41
+ * @version V1.0
+ */
+
+package com.zjlsystem.entity.common;
+
+/**
+ * @ClassName: ZTreeNode
+ * @Description: TODO
+ * @author zhujl
+ * @modify zhujl
+ * @date 2017年8月15日 下午8:17:41
+ *
+ */
+
+public class ZTreeNode {
+	private String id; // 节点id
+
+	private String pId;// 父节点id
+
+	private String name;// 节点名称
+
+	private Boolean open;// 是否打开节点
+
+	private Boolean checked;// 是否被选中
+
+	private Boolean isMenu;// 是否是菜单
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getpId() {
+		return pId;
+	}
+
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Boolean getOpen() {
+		return open;
+	}
+
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
+
+	public Boolean getIsOpen() {
+		return open;
+	}
+
+	public void setIsOpen(Boolean open) {
+		this.open = open;
+	}
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+	
+
+	public Boolean getIsMenu() {
+		return isMenu;
+	}
+
+	public void setIsMenu(Boolean isMenu) {
+		this.isMenu = isMenu;
+	}
+
+	public static ZTreeNode createMenuParent() {
+		ZTreeNode zTreeNode = new ZTreeNode();
+		zTreeNode.setChecked(true);
+		zTreeNode.setId("0");
+		zTreeNode.setName("所有按钮");
+		zTreeNode.setOpen(true);
+		zTreeNode.setpId("0");
+		return zTreeNode;
+	}
+}

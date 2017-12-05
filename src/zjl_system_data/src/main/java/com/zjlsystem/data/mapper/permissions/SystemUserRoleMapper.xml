@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjlsystem.data.dao.permissions.ISystemUserRoleDao">
+	<resultMap id="BaseResultMap"
+		type="com.zjlsystem.entity.permissions.SystemUserRole">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="userid" property="userId" jdbcType="VARCHAR" />
+		<result column="roleid" property="roleId" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="createtime" property="createTime" jdbcType="VARCHAR" />
+		<result column="createman" property="createMan" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, userid, roleid, remarks,
+		createtime,createman
+	</sql>
+	
+
+	<insert id="insert" parameterType="com.zjlsystem.entity.permissions.SystemUserRole">
+		insert into system_user_role (
+		id,
+		userid,
+		roleid,
+		remarks,
+		createtime,
+		createman
+		)
+		values (
+		#{id,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{roleId,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{createMan,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		system_user_role
+		where
+		userid
+		= #{userId,jdbcType=VARCHAR}
+	</delete>	
+	
+	<select id="findRoleByUserId" resultType="java.lang.String">
+		select
+		roleid
+		from
+		system_user_role
+		where userid=#{uId,jdbcType=VARCHAR}
+	</select>
+</mapper>
