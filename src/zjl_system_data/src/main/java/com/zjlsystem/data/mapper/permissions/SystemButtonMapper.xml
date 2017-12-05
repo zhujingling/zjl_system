@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjlsystem.data.dao.permissions.ISystemButtonDao">
+	<resultMap id="BaseResultMap" type="com.zjlsystem.entity.permissions.SystemButton">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="button_name" property="buttonName" jdbcType="VARCHAR" />
+		<result column="button_method" property="buttonMethod"
+			jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="style" property="style" jdbcType="VARCHAR" />
+		<result column="orderno" property="orderNo" jdbcType="BIGINT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="createtime" property="createTime" jdbcType="VARCHAR" />
+		<result column="modifytime" property="modifyTime" jdbcType="VARCHAR" />
+		<result column="createman" property="createMan" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	id, button_name, button_method, icon,style, orderno, remarks,
+	createtime,
+	modifytime, createman
+	</sql>
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+
+	<sql id="where_all">
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(button_name) like
+				LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+				)
+			</if>
+		</where>
+	</sql>
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_button
+		<include refid="where_all" />
+		
+		order by orderno 
+		
+		<include refid="limit_sql" />
+	</select>
+	<select id="findCount" resultMap="BaseResultMap">
+		select count(id) from system_button
+		<include refid="where_all" />
+	</select>
+
+	<insert id="insert" parameterType="com.zjlsystem.entity.permissions.SystemButton">
+		insert into system_button (
+		id,
+		button_name,
+		button_method,
+		icon,
+		style,
+		orderno,
+		remarks,
+		createtime,
+		modifytime,
+		createman
+		)
+		values (
+		#{id,jdbcType=VARCHAR},
+		#{buttonName,jdbcType=VARCHAR},
+		#{buttonMethod,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR},
+		#{style,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=BIGINT},
+		#{remarks,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{modifyTime,jdbcType=VARCHAR},
+		#{createMan,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		system_button
+		where
+		id = #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="update" parameterType="com.zjlsystem.entity.permissions.SystemButton">
+		update system_button
+		<set>
+			<if test="buttonName != null">
+				button_name = #{buttonName,jdbcType=VARCHAR},
+			</if>
+			<if test="buttonMethod != null">
+				button_method = #{buttonMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="style != null">
+				style = #{style,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				orderno = #{orderNo,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				createtime = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="ModifyTime != null">
+				modifytime = #{modifyTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createMan != null">
+				createman = #{createMan,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findButtonByButtonId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_button
+		where id=#{buttonId,jdbcType=VARCHAR}
+		 order by orderno
+
+	</select>
+	
+	<select id="getAllButton" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_button order by orderno
+	</select>
+</mapper>

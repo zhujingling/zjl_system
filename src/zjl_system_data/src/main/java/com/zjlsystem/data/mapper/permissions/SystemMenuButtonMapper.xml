@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjlsystem.data.dao.permissions.ISystemMenuButtonDao">
+	<resultMap id="BaseResultMap"
+		type="com.zjlsystem.entity.permissions.SystemMenuButton">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="menuid" property="menuId" jdbcType="VARCHAR" />
+		<result column="buttonid" property="buttonId" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="createtime" property="createTime" jdbcType="VARCHAR" />
+		<result column="createman" property="createMan" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, menuid, buttonid, remarks,
+		createtime,createman
+	</sql>
+
+
+	<insert id="insert" parameterType="com.zjlsystem.entity.permissions.SystemMenuButton">
+		insert into system_menu_button
+		(
+		id,
+		menuid,
+		buttonid,
+		remarks,
+		createtime,
+		createman
+		)
+		values (
+		#{id,jdbcType=VARCHAR},
+		#{menuId,jdbcType=VARCHAR},
+		#{buttonId,jdbcType=VARCHAR},
+		#{remarks,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{createMan,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		system_menu_button
+		where
+		menuid
+		= #{menuId,jdbcType=VARCHAR}
+	</delete>
+
+	<select id="findButtonByMenuId" resultType="java.lang.String">
+		select
+		buttonid
+		from
+		system_menu_button
+		where menuid=#{menuId,jdbcType=VARCHAR}
+	</select>
+</mapper>

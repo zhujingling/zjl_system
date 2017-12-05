@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjlsystem.data.dao.permissions.ISystemMenuDao">
+	<resultMap id="BaseResultMap" type="com.zjlsystem.entity.permissions.SystemMenu">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+		<result column="menu_url" property="menuUrl" jdbcType="VARCHAR" />
+		<result column="parentid" property="parentId" jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="orderno" property="orderNo" jdbcType="BIGINT" />
+		<result column="levels" property="levels" jdbcType="BIGINT" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="createtime" property="createTime" jdbcType="VARCHAR" />
+		<result column="modifytime" property="modifyTime" jdbcType="VARCHAR" />
+		<result column="createman" property="createMan" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, menu_name, menu_url, parentid,icon, orderno, levels,remarks,
+		createtime,
+		modifytime, createman
+	</sql>
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+
+	<sql id="where_all">
+		<where>
+			<if test="findContent != null and findContent !='' ">
+				and (
+				LOWER(menu_name) like
+				LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+				)
+			</if>
+		</where>
+	</sql>
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_menu
+		<include refid="where_all" />
+		<include refid="limit_sql" />
+	</select>
+	<select id="findCount" resultMap="BaseResultMap">
+		select count(id) from system_menu
+		<include refid="where_all" />
+	</select>
+
+	<insert id="insert" parameterType="com.zjlsystem.entity.permissions.SystemMenu">
+		insert into system_menu (
+		id,
+		menu_name,
+		menu_url,
+		parentid,
+		icon,
+		orderno,
+		levels,
+		remarks,
+		createtime,
+		modifytime,
+		createman
+		)
+		values (
+		#{id,jdbcType=VARCHAR},
+		#{menuName,jdbcType=VARCHAR},
+		#{menuUrl,jdbcType=VARCHAR},
+		#{parentId,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=BIGINT},
+		#{levels,jdbcType=BIGINT},
+		#{remarks,jdbcType=VARCHAR},
+		#{createTime,jdbcType=VARCHAR},
+		#{modifyTime,jdbcType=VARCHAR},
+		#{createMan,jdbcType=BIGINT}
+		)
+	</insert>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		system_menu
+		where
+		id
+		= #{id,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="update" parameterType="com.zjlsystem.entity.permissions.SystemMenu">
+		update system_menu
+		<set>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuUrl != null">
+				menu_url = #{menuUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parentid = #{parentId,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				orderno = #{orderNo,jdbcType=BIGINT},
+			</if>
+			<if test="levels != null">
+				levels = #{levels,jdbcType=BIGINT},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				createtime = #{createTime,jdbcType=VARCHAR},
+			</if>
+			<if test="ModifyTime != null">
+				modifytime = #{modifyTime,jdbcType=VARCHAR},
+			</if>
+			<if test="createMan != null">
+				createman = #{createMan,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<select id="findMenuByMenuId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_menu
+		where id=#{menuId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="findAllMenu" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from system_menu
+	</select>
+
+</mapper>
